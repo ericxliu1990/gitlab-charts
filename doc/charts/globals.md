@@ -66,6 +66,9 @@ global:
     pages:
       name: pages.example.com
       https: false
+    spamcheck:
+      name: spamcheck.example.com
+      https: false
 ```
 
 | Name                   | Type    | Default       | Description |
@@ -92,6 +95,8 @@ global:
 | `kas.https`            | Boolean | `false`       | If `hosts.https` or `kas.https` are `true`, the KAS external URL will use `wss://` instead of `ws://`. |
 | `pages.name`           | String  | `pages`       | The hostname for GitLab Pages. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
 | `pages.https`          | String  |               | If `global.pages.https` or `global.hosts.pages.https` or `global.hosts.https` are `true`, then URL for GitLab Pages in the Project settings UI will use `https://` instead of `http://`. |
+| `spamcheck.name`           | String  | `spamcheck`       | The hostname for Spamcheck. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
+| `spamcheck.https`          | String  |               | If `global.spamcheck.https` or `global.hosts.spamcheck.https` or `global.hosts.https` are `true`, then URL for Spamcheck in the Project settings UI will use `https://` instead of `http://`. |
 
 ### hostSuffix
 
@@ -1213,6 +1218,30 @@ global:
       externalUrl: "wss://custom-kas-url.example.com"
       internalUrl: "grpc://custom-internal-url"
 ```
+
+### Spamcheck settings
+
+#### Custom secret
+
+One can optionally customize the Spamcheck `secret` name as well and `key`, either by
+using Helm's `--set variable` option:
+
+```shell
+--set global.appConfig.gitlab_spamcheck.secret=custom-secret-name \
+--set global.appConfig.gitlab_spamcheck.key=custom-secret-key \
+```
+
+or by configuring your `values.yaml`:
+
+```yaml
+global:
+  appConfig:
+    gitlab_spamcheck:
+      secret: "custom-secret-name"
+      key: "custom-secret-key"
+```
+
+If you'd like to customize the secret value, refer to the [secrets documentation](../installation/secrets.md#gitlab-spamcheck-secret).
 
 ### LDAP
 

@@ -36,6 +36,14 @@ gitlab_kas:
 {{- end -}}
 {{- end -}}
 
+{{- define "gitlab.appConfig.spamcheck" -}}
+{{- if (or .Values.global.spamcheck.enabled .Values.global.appConfig.gitlab_spamcheck.enabled) -}}
+gitlab_spamcheck:
+  enabled: true
+  secret_file: /etc/gitlab/spamcheck/.gitlab_spamcheck_secret
+{{- end -}}
+{{- end -}}
+
 {{- define "gitlab.appConfig.shell" -}}
 gitlab_shell:
   path: /home/git/gitlab-shell/

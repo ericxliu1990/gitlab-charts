@@ -66,6 +66,7 @@ global:
     smartcard: {}
     kas: {}
     pages: {}
+    spamcheck: {}
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
@@ -416,6 +417,12 @@ global:
       # externalUrl:
       # internalUrl:
 
+    ## https://docs.gitlab.com/charts/charts/globals#spamcheck-settings
+    gitlab_spamcheck: {}
+      # secret:
+      # key:
+      # enabled:
+
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
       enabled: false
@@ -494,6 +501,10 @@ global:
     enabled: false
     service:
       apiExternalPort: 8153 # port for connections from the GitLab backend
+
+  ## https://docs.gitlab.com/charts/charts/gitlab/spamcheck/
+  spamcheck:
+    enabled: false
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-gitlab-shell
   shell:

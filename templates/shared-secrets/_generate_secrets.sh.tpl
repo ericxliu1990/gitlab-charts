@@ -115,6 +115,11 @@ generate_secret_if_needed {{ template "gitlab.kas.secret" . }} --from-literal={{
 generate_secret_if_needed {{ template "gitlab.kas.privateApi.secret" . }} --from-literal={{ template "gitlab.kas.privateApi.key" . }}=$(gen_random 'a-zA-Z0-9' 32 | base64)
 {{ end }}
 
+{{ if .Values.global.spamcheck.enabled -}}
+# GitLab Spamcheck secret
+generate_secret_if_needed {{ template "gitlab.spamcheck.secret" . }} --from-literal={{ template "gitlab.spamcheck.key" . }}=$(gen_random 'a-zA-Z0-9' 32 | base64)
+{{ end }}
+
 # Registry certificates
 mkdir -p certs
 openssl req -new -newkey rsa:4096 -subj "/CN=gitlab-issuer" -nodes -x509 -keyout certs/registry-example-com.key -out certs/registry-example-com.crt -days 3650

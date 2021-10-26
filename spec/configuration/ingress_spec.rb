@@ -24,6 +24,7 @@ describe 'GitLab Ingress configuration(s)' do
       test-grafana-app
       test-gitlab-pages
       test-kas
+      test-spamcheck
       test-webservice-default
       test-webservice-default-smartcard
       test-minio
@@ -44,6 +45,8 @@ describe 'GitLab Ingress configuration(s)' do
         grafana:
           enabled: true
         kas:
+          enabled: true
+        spamcheck:
           enabled: true
       registry:
         enabled: true
