@@ -193,6 +193,10 @@ lint_package:
       - /(^docs[\/-].+|.+-docs$)/
       - *com_auto_deploy_branch_ref
 
+detach_me:
+  stage: prepare
+  script: echo "Detached yet?"
+
 review_gke:
   variables:
     DNS_PROVIDER: "google"
