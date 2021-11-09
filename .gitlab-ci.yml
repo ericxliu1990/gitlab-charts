@@ -53,10 +53,10 @@ stages:
   - package
   - cleanup
 
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
+# workflow:
+#  rules:
+#    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+#      when: never
 
 before_script:
   - source scripts/ci/autodevops.sh
