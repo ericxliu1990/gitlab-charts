@@ -4,7 +4,7 @@
 {{-   $gitlabHostname = .Values.global.hosts.gitlab.hostnameOverride -}}
 {{- end -}}
 {{- $tlsSecret := include "webservice.tlsSecret" . -}}
-{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . "capabilities" .Capabilities -}}
+{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . -}}
 apiVersion: {{ template "gitlab.ingress.apiVersion" $ingressCfg }}
 kind: Ingress
 metadata:

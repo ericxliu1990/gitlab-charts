@@ -2,7 +2,7 @@
 {{- if eq (include "gitlab.ingress.enabled" $) "true" -}}
 {{- $hostname := include "registry.hostname" . -}}
 {{- $tlsSecret := include "registry.tlsSecret" . -}}
-{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . "capabilities" .Capabilities -}}
+{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . -}}
 
 apiVersion: {{ template "gitlab.ingress.apiVersion" $ingressCfg }}
 kind: Ingress

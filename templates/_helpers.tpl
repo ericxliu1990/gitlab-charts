@@ -329,8 +329,13 @@ Defaults to nil
 {{/*
 Return the appropriate apiVersion for Ingress.
 
+It expects a dictionary with three entries:
+  - `global` which contains global ingress settings, e.g. .Values.global.ingress
+  - `local` which contains local ingress settings, e.g. .Values.ingress
+  - `parent` which is the parent context (either `.` or `$`)
+
 Example usage:
-{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "capabilities" .Capabilities -}}
+{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . -}}
 kubernetes.io/ingress.provider: "{{ template "gitlab.ingress.provider" $ingressCfg }}"
 */}}
 {{- define "gitlab.ingress.apiVersion" -}}
@@ -338,9 +343,9 @@ kubernetes.io/ingress.provider: "{{ template "gitlab.ingress.provider" $ingressC
 {{-     .local.apiVersion -}}
 {{-   else if .global.apiVersion -}}
 {{-     .global.apiVersion -}}
-{{-   else if .capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" -}}
+{{-   else if .parent.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" -}}
 {{-     print "networking.k8s.io/v1" -}}
-{{-   else if .capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" -}}
+{{-   else if .parent.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" -}}
 {{-     print "networking.k8s.io/v1beta1" -}}
 {{-   else -}}
 {{-     print "extensions/v1beta1" -}}
