@@ -2,7 +2,7 @@
 {{- if eq (include "gitlab.ingress.enabled" $) "true" -}}
 {{- $hostname := include "registry.hostname" . -}}
 {{- $tlsSecret := include "registry.tlsSecret" . -}}
-{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "capabilities" .Capabilities -}}
+{{- $ingressCfg := dict "global" .Values.global.ingress "local" .Values.ingress "parent" . "capabilities" .Capabilities -}}
 
 apiVersion: {{ template "gitlab.ingress.apiVersion" $ingressCfg }}
 kind: Ingress
@@ -13,7 +13,7 @@ metadata:
     {{- include "gitlab.standardLabels" . | nindent 4 }}
     {{- include "gitlab.commonLabels" . | nindent 4 }}
   annotations:
-    kubernetes.io/ingress.class: "{{ template "registry.ingressclass" . }}"
+    {{ include "ingress.class.annotation" $ingressCfg }}
     kubernetes.io/ingress.provider: "{{ template "gitlab.ingress.provider" $ingressCfg }}"
     {{- if eq "nginx" .Values.global.ingress.provider }}
     nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.ingress.proxyBodySize | quote }}
@@ -26,6 +26,7 @@ metadata:
     {{ $key }}: {{ $value | quote }}
   {{- end }}
 spec:
+  {{ include "ingress.class.spec" $ingressCfg }}
   rules:
     - host: {{ $hostname }}
       http:

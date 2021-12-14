@@ -350,7 +350,7 @@ kubernetes.io/ingress.provider: "{{ template "gitlab.ingress.provider" $ingressC
 {{/*
 Returns the nginx ingress class
 */}}
-{{- define "gitlab.ingressclass" -}}
+{{- define "gitlab.ingress.className" -}}
 {{- pluck "class" .Values.global.ingress (dict "class" (printf "%s-nginx" .Release.Name)) | first -}}
 {{- end -}}
 
@@ -376,7 +376,7 @@ Overrides the ingress-nginx template to make sure gitlab-shell name matches
 Overrides the ingress-nginx template to make sure our ingresses match
 */}}
 {{- define "ingress-nginx.controller.ingress-class" -}}
-{{ template "gitlab.ingressclass" . }}
+{{ template "gitlab.ingress.className" . }}
 {{- end -}}
 
 {{/* ######### annotations */}}
