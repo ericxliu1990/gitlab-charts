@@ -14,7 +14,7 @@ From here on:
 - `.` is `.deployments.xyz` value
 - `.name` is the key (xyz)
 */}}
-{{- $ingressCfg := dict "global" $.Values.global.ingress "local" .ingress "parent" $ "capabilities" $.Capabilities -}}
+{{- $ingressCfg := dict "global" $.Values.global.ingress "local" .ingress "parent" $ -}}
 ---
 apiVersion: {{ template "gitlab.ingress.apiVersion" $ingressCfg }}
 kind: Ingress
