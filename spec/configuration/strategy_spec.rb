@@ -29,6 +29,8 @@ describe 'Strategy configuration' do
             secret: foobar
         pages:
           enabled: true
+        spamcheck:
+          enabled: true
         praefect:
           enabled: true
         appConfig:
@@ -40,6 +42,9 @@ describe 'Strategy configuration' do
             key: secret_key
             secret: secret_name
             internalUrl: grpc://custom-internal-url.example.com
+          gitlab_spamcheck:
+            key: secret_key
+            secret: secret_name
       gitlab:
         kas:
           deployment:
@@ -66,6 +71,10 @@ describe 'Strategy configuration' do
             strategy:
               type: Recreate
         gitlab-pages:
+          deployment:
+            strategy:
+              type: Recreate
+        spamcheck:
           deployment:
             strategy:
               type: Recreate
