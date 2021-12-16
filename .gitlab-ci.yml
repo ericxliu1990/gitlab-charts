@@ -797,6 +797,8 @@ publish_devel_package:
     CHANNEL: "devel"
     VERSION_SUFFIX: "-${CI_PIPELINE_ID}"
   rules:
+    - if: $DEPS_PIPELINE || $TRIGGER_JOB
+      when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 release_package:
@@ -819,6 +821,7 @@ release_package:
         https://gitlab.com/api/v4/projects/2860651/trigger/pipeline
   only:
     - tags@gitlab/charts/gitlab
+
   when: manual
 
 .qa_branch:
